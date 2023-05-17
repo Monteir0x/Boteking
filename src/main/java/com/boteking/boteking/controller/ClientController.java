@@ -9,8 +9,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/Client")
 public class ClientController {
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    public ClientController(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     @GetMapping
     private List<Client> clientList(){

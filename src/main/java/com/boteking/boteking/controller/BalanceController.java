@@ -2,7 +2,6 @@ package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Balance;
 import com.boteking.boteking.repositories.BalanceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,8 +9,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/Balance")
 public class BalanceController {
-    @Autowired
-    private BalanceRepository balanceRepository;
+
+    private final BalanceRepository balanceRepository;
+
+    public BalanceController(BalanceRepository balanceRepository) {
+        this.balanceRepository = balanceRepository;
+    }
+
     @GetMapping
     public List<Balance> balanceList() {
         return balanceRepository.findAll();

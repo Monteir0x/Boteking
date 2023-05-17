@@ -9,8 +9,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/Caderno")
 public class CadernoController {
-    @Autowired
-    private CadernoRepository cadernoRepository;
+
+    private final CadernoRepository cadernoRepository;
+
+    public CadernoController(CadernoRepository cadernoRepository) {
+        this.cadernoRepository = cadernoRepository;
+    }
 
     @GetMapping
     public List<Caderno> cadernoList(){
