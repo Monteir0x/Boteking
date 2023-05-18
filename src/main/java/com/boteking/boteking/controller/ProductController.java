@@ -1,34 +1,33 @@
 package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Product;
-import com.boteking.boteking.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.boteking.boteking.services.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping("/Product")
 public class ProductController {
-    private final ProductRepository productRepository;
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    private final ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
     @GetMapping
     public List<Product> productList() {
-        return productRepository.findAll();
+        return productService.getAll();
     }
     @PostMapping
     public void save(Product product) {
-        productRepository.save(product);
+        productService.create(product);
     }
     @PutMapping
     public void update(Product product) {
         if (product.getId() > 0) {
-            productRepository.save(product);
+            productService.update(product.getId(), product);
         }
     }
     @DeleteMapping
     public void delete(Product product){
-        productRepository.delete(product);
+        productService.delete(product.getId());
     }
 }

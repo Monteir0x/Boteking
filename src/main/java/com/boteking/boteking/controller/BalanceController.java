@@ -1,7 +1,7 @@
 package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Balance;
-import com.boteking.boteking.repositories.BalanceRepository;
+import com.boteking.boteking.services.BalanceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,28 +10,28 @@ import java.util.List;
 @RequestMapping("/Balance")
 public class BalanceController {
 
-    private final BalanceRepository balanceRepository;
+    private final BalanceService balanceService;
 
-    public BalanceController(BalanceRepository balanceRepository) {
-        this.balanceRepository = balanceRepository;
+    public BalanceController(BalanceService balanceService) {
+        this.balanceService = balanceService;
     }
 
     @GetMapping
     public List<Balance> balanceList() {
-        return balanceRepository.findAll();
+        return balanceService.getAll();
     }
     @PostMapping
     public void save(@RequestBody Balance balance) {
-        balanceRepository.save(balance);
+        balanceService.create(balance);
     }
     @PutMapping
     public void update(@RequestBody Balance balance) {
         if (balance.getId() > 0) {
-            balanceRepository.save(balance);
+            balanceService.update(balance.getId(), balance);
         }
     }
     @DeleteMapping
     public void delete(@RequestBody Balance balance){
-        balanceRepository.delete(balance);
+        balanceService.delete(balance.getId());
     }
 }

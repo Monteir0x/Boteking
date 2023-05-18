@@ -1,8 +1,7 @@
 package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Caderno;
-import com.boteking.boteking.repositories.CadernoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.boteking.boteking.services.CadernoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,29 +9,29 @@ import java.util.List;
 @RequestMapping("/Caderno")
 public class CadernoController {
 
-    private final CadernoRepository cadernoRepository;
+    private final CadernoService cadernoService;
 
-    public CadernoController(CadernoRepository cadernoRepository) {
-        this.cadernoRepository = cadernoRepository;
+    public CadernoController(CadernoService cadernoService) {
+        this.cadernoService = cadernoService;
     }
 
     @GetMapping
     public List<Caderno> cadernoList(){
-       return cadernoRepository.findAll();
+       return cadernoService.getAll();
     }
     @PostMapping
     public void save(@RequestBody Caderno caderno){
-        cadernoRepository.save(caderno);
+        cadernoService.create(caderno);
     }
     @PutMapping
     public void update(@RequestBody Caderno caderno){
         if (caderno.getId() > 0){
-            cadernoRepository.save(caderno);
+            cadernoService.update(caderno.getId(), caderno);
         }
     }
     @DeleteMapping
     public void delete(@RequestBody Caderno caderno){
-        cadernoRepository.delete(caderno);
+        cadernoService.delete(caderno.getId());
     }
 }
 
