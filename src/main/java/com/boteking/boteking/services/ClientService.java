@@ -23,14 +23,16 @@ public class ClientService {
     public Client create(Client client){
         return clientRepository.save(client);
     }
-    public Client update(int id, Client updatedClient){
-        Client client = getById(id);
-
-        client.setName(client.getName());
-        client.setProduct(client.getProduct());
-
-        return clientRepository.save(client);
-
+    public void update(Client updatedClient){
+        if (!clientRepository.existsById(updatedClient.getId())){
+            throw new NoSuchElementException("Cliente não encontrado");
+        }
+        Client.builder()
+                .id(updatedClient.getId())
+                .name(updatedClient.getName())
+                .product(updatedClient.getProduct())
+                .build();
+        clientRepository.save(updatedClient);
     }
     public void delete(int id){
         Client client = getById(id);

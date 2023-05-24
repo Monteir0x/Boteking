@@ -26,13 +26,14 @@ public class BalanceService {
     public Balance create(Balance balance){
         return balanceRepository.save(balance);
     }
-    public Balance update(int id, Balance updatedBalance){
-        Balance balance = getById(id);
-
-        balance.setProduct(updatedBalance.getProduct());
-        balance.setClient(updatedBalance.getClient());
-
-        return balanceRepository.save(balance);
+    public void update(Balance updatedBalance){
+        if (!balanceRepository.existsById(updatedBalance.getId())){
+            throw new NoSuchElementException("Balanço não encontrado");
+        }
+        Balance balance = new Balance(
+                updatedBalance.getId(),
+                updatedBalance.getClient(),
+                updatedBalance.getProduct());
     }
 
     public void delete(int id){

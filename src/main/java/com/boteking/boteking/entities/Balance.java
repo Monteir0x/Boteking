@@ -1,8 +1,16 @@
 package com.boteking.boteking.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Objects;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Builder
+@ToString
 public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,27 +20,16 @@ public class Balance {
     @ManyToOne
     private Product product;
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Balance balance = (Balance) o;
+        return id == balance.id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

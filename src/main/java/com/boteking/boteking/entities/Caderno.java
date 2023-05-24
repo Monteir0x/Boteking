@@ -1,10 +1,21 @@
 package com.boteking.boteking.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Builder
+@ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Caderno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,34 +23,23 @@ public class Caderno {
     @ManyToOne
     private Client cliente;
     private String status;
-    private Date date;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Caderno caderno = (Caderno) o;
+        return id == caderno.id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Client getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Client cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getDate() {
-        return date;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

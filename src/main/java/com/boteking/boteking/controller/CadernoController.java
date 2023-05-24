@@ -2,11 +2,13 @@ package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Caderno;
 import com.boteking.boteking.services.CadernoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/Caderno")
+@RequestMapping("/api/v1/cardeno")
 public class CadernoController {
 
     private final CadernoService cadernoService;
@@ -16,22 +18,22 @@ public class CadernoController {
     }
 
     @GetMapping
-    public List<Caderno> cadernoList(){
-       return cadernoService.getAll();
+    public ResponseEntity<List<Caderno>> cadernoList(){
+       return ResponseEntity.ok(cadernoService.getAll());
     }
     @PostMapping
-    public void save(@RequestBody Caderno caderno){
-        cadernoService.create(caderno);
+    public ResponseEntity<Caderno> save(@RequestBody Caderno caderno){
+       return ResponseEntity.status(HttpStatus.CREATED).body(cadernoService.create(caderno));
     }
     @PutMapping
-    public void update(@RequestBody Caderno caderno){
-        if (caderno.getId() > 0){
-            cadernoService.update(caderno.getId(), caderno);
-        }
+    public ResponseEntity<Void> update(@RequestBody Caderno caderno){
+            cadernoService.update(caderno);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @DeleteMapping
-    public void delete(@RequestBody Caderno caderno){
-        cadernoService.delete(caderno.getId());
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id){
+        cadernoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 

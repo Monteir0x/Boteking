@@ -23,12 +23,18 @@ public class CadernoService {
     public Caderno create(Caderno caderno){
         return cadernoRepository.save(caderno);
     }
-    public Caderno update(int id, Caderno updatedCaderno){
-        Caderno caderno = getById(id);
-
-        caderno.setCliente(caderno.getCliente());
-        caderno.setStatus(caderno.getStatus());
-        return cadernoRepository.save(caderno);
+    public void update(Caderno updatedCaderno){
+        if (!cadernoRepository.existsById(updatedCaderno.getId())){
+            throw new NoSuchElementException("Caderno não encontrado");
+        }
+        Caderno.builder()
+                .id(updatedCaderno.getId())
+                .createdAt(updatedCaderno.getCreatedAt())
+                .updatedAt(updatedCaderno.getUpdatedAt())
+                .status(updatedCaderno.getStatus())
+                .cliente(updatedCaderno.getCliente())
+                .build();
+        cadernoRepository.save(updatedCaderno);
     }
     public void delete(int id){
         Caderno caderno = getById(id);

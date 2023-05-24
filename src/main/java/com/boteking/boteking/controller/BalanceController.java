@@ -2,12 +2,14 @@ package com.boteking.boteking.controller;
 
 import com.boteking.boteking.entities.Balance;
 import com.boteking.boteking.services.BalanceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/Balance")
+@RequestMapping("/api/v1/balance")
 public class BalanceController {
 
     private final BalanceService balanceService;
@@ -17,21 +19,21 @@ public class BalanceController {
     }
 
     @GetMapping
-    public List<Balance> balanceList() {
-        return balanceService.getAll();
+    public ResponseEntity<List<Balance>> balanceList() {
+        return ResponseEntity.ok(balanceService.getAll());
     }
     @PostMapping
-    public void save(@RequestBody Balance balance) {
-        balanceService.create(balance);
+    public ResponseEntity<Balance> save(@RequestBody Balance balance) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(balanceService.create(balance));
     }
     @PutMapping
-    public void update(@RequestBody Balance balance) {
-        if (balance.getId() > 0) {
-            balanceService.update(balance.getId(), balance);
-        }
+    public ResponseEntity<Void> update(@RequestBody Balance balance) {
+            balanceService.update(balance);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @DeleteMapping
-    public void delete(@RequestBody Balance balance){
-        balanceService.delete(balance.getId());
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id){
+        balanceService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
