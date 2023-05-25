@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @ManyToOne
     private Client client;
     @ManyToOne

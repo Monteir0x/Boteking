@@ -19,7 +19,7 @@ import java.util.Objects;
 public class Caderno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @ManyToOne
     private Client cliente;
     private String status;

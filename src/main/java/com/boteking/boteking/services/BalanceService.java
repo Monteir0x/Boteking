@@ -30,10 +30,12 @@ public class BalanceService {
         if (!balanceRepository.existsById(updatedBalance.getId())){
             throw new NoSuchElementException("Balanço não encontrado");
         }
-        Balance balance = new Balance(
-                updatedBalance.getId(),
-                updatedBalance.getClient(),
-                updatedBalance.getProduct());
+        Balance.builder()
+                .id(updatedBalance.getId())
+                .client(updatedBalance.getClient())
+                .product(updatedBalance.getProduct())
+                .build();
+        balanceRepository.save(updatedBalance);
     }
 
     public void delete(int id){
