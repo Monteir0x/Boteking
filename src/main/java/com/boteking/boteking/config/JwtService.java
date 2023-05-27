@@ -17,8 +17,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Value("${apiKey}")
-    private static  String SECRET_KEY;
+
+    private static String SECRET_KEY = "217A25432A462D4A614E645267556B58703273357638792F413F4428472B4B62";
 
 
     public String extractUsername(String token) {
@@ -66,7 +66,7 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
