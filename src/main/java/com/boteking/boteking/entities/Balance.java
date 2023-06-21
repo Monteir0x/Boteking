@@ -20,6 +20,7 @@ public class Balance {
     @ManyToOne
     private Product product;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

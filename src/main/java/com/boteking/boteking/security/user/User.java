@@ -1,5 +1,6 @@
 package com.boteking.boteking.security.user;
 
+import com.boteking.boteking.security.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,10 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Token> token;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

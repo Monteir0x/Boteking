@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// busca o usuário e codifica o password
+
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {

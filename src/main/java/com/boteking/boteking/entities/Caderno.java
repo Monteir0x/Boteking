@@ -41,5 +41,4 @@ public class Caderno {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
