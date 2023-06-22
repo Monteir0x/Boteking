@@ -2,10 +2,11 @@ package com.boteking.boteking.services;
 
 import com.boteking.boteking.entities.Caderno;
 import com.boteking.boteking.repositories.CadernoRepository;
+import com.boteking.boteking.services.exceptions.DatabaseExceptions;
+import com.boteking.boteking.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 @Service
 public class CadernoService {
     private final CadernoRepository cadernoRepository;
@@ -18,14 +19,14 @@ public class CadernoService {
     }
     public Caderno getById(int id){
         return cadernoRepository.findById(id)
-                .orElseThrow(()-> new NoSuchElementException("Caderno não encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Caderno não encontrado"));
     }
     public Caderno create(Caderno caderno){
         return cadernoRepository.save(caderno);
     }
     public void update(Caderno updatedCaderno){
         if (!cadernoRepository.existsById(updatedCaderno.getId())){
-            throw new NoSuchElementException("Caderno não encontrado");
+            throw new DatabaseExceptions("Caderno não encontrado, criado novo caderno");
         }
         Caderno.builder()
                 .id(updatedCaderno.getId())

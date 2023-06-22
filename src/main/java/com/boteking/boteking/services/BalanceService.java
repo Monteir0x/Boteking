@@ -29,12 +29,12 @@ public class BalanceService {
     }
     public void update(Balance updatedBalance){
         if (!balanceRepository.existsById(updatedBalance.getId())){
-            throw new DatabaseExceptions("Balanço não encontrado");
+            throw new DatabaseExceptions("Balanço não encontrado, criado novo balanço");
         }
         Balance.builder()
                 .id(updatedBalance.getId())
                 .client(updatedBalance.getClient())
-                .product(updatedBalance.getProduct())
+                .products(updatedBalance.getProducts())
                 .build();
         balanceRepository.save(updatedBalance);
     }

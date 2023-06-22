@@ -2,10 +2,11 @@ package com.boteking.boteking.services;
 
 import com.boteking.boteking.entities.Client;
 import com.boteking.boteking.repositories.ClientRepository;
+import com.boteking.boteking.services.exceptions.DatabaseExceptions;
+import com.boteking.boteking.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
@@ -18,19 +19,19 @@ public class ClientService {
     }
     public Client getById(int id){
         return clientRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
     }
     public Client create(Client client){
         return clientRepository.save(client);
     }
     public void update(Client updatedClient){
         if (!clientRepository.existsById(updatedClient.getId())){
-            throw new NoSuchElementException("Cliente não encontrado");
+            throw new DatabaseExceptions("Cliente não encontrado, criado novo cliente");
         }
         Client.builder()
                 .id(updatedClient.getId())
                 .name(updatedClient.getName())
-                .product(updatedClient.getProduct())
+                .products(updatedClient.getProducts())
                 .build();
         clientRepository.save(updatedClient);
     }

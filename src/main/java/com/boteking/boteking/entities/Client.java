@@ -3,6 +3,9 @@ package com.boteking.boteking.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,14 +14,18 @@ import java.util.Objects;
 @Getter
 @Builder
 @ToString
-public class Client {
+public class Client implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne
-    private Product product;
+    @OneToMany(mappedBy = "clients")
+    @ToString.Exclude
+    private List<Product> products;
+
 
     @Override
     public boolean equals(Object o) {

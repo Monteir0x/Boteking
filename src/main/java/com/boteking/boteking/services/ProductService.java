@@ -2,10 +2,11 @@ package com.boteking.boteking.services;
 
 import com.boteking.boteking.entities.Product;
 import com.boteking.boteking.repositories.ProductRepository;
+import com.boteking.boteking.services.exceptions.DatabaseExceptions;
+import com.boteking.boteking.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class ProductService {
@@ -21,7 +22,7 @@ public class ProductService {
 
     public Product getById(int id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Produto não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
     }
 
     public Product create(Product product) {
@@ -30,7 +31,7 @@ public class ProductService {
 
     public void update(Product updatedProduct) {
         if (!productRepository.existsById(updatedProduct.getId())) {
-            throw new NoSuchElementException("Produto não encontrado");
+            throw new DatabaseExceptions("Produto não encontrado, criado novo produto");
         }
         Product.builder()
                 .id(updatedProduct.getId())
