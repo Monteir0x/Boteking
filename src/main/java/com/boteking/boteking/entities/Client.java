@@ -25,7 +25,7 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return id == client.id;
+        return Objects.equals(id, client.id);
     }
 
     @Override

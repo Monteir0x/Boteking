@@ -20,13 +20,12 @@ public class Balance {
     @ManyToOne
     private Product product;
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Balance balance = (Balance) o;
-        return id == balance.id;
+        return Objects.equals(id, balance.id);
     }
 
     @Override

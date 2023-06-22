@@ -2,10 +2,11 @@ package com.boteking.boteking.services;
 
 import com.boteking.boteking.entities.Balance;
 import com.boteking.boteking.repositories.BalanceRepository;
+import com.boteking.boteking.services.exceptions.DatabaseExceptions;
+import com.boteking.boteking.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class BalanceService {
@@ -21,14 +22,14 @@ public class BalanceService {
 
     public Balance getById(int id){
         return balanceRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Balanço não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Balanço não encontrado"));
     }
     public Balance create(Balance balance){
         return balanceRepository.save(balance);
     }
     public void update(Balance updatedBalance){
         if (!balanceRepository.existsById(updatedBalance.getId())){
-            throw new NoSuchElementException("Balanço não encontrado");
+            throw new DatabaseExceptions("Balanço não encontrado");
         }
         Balance.builder()
                 .id(updatedBalance.getId())

@@ -34,7 +34,7 @@ public class Caderno {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Caderno caderno = (Caderno) o;
-        return id == caderno.id;
+        return Objects.equals(id, caderno.id);
     }
 
     @Override
