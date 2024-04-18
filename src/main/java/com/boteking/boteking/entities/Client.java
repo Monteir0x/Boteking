@@ -3,8 +3,6 @@ package com.boteking.boteking.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +12,7 @@ import java.util.Objects;
 @Getter
 @Builder
 @ToString
-public class Client implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,7 +21,6 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "clients")
     @ToString.Exclude
     private List<Product> products;
-
 
     @Override
     public boolean equals(Object o) {
