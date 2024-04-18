@@ -3,8 +3,6 @@ package com.boteking.boteking.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,9 +11,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Builder
-public class Product implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,13 +32,9 @@ public class Product implements Serializable {
         Product product = (Product) o;
         return Objects.equals(id, product.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
-
 
 }
