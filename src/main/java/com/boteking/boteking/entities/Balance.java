@@ -5,8 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -17,9 +15,7 @@ import java.util.Objects;
 @Getter
 @Builder
 @ToString
-public class Balance implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,10 +29,6 @@ public class Balance implements Serializable {
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 
     @Override
     public boolean equals(Object o) {
