@@ -1,10 +1,12 @@
-package com.boteking.boteking.domain.entities;
+package com.boteking.boteking.domain.entities.order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.boteking.boteking.domain.entities.enums.PaymentMethod;
+import com.boteking.boteking.domain.entities.customer.Customer;
+import com.boteking.boteking.domain.entities.product.Product;
+import com.boteking.boteking.domain.shared.PaymentMethod;
 
 import lombok.Getter;
 

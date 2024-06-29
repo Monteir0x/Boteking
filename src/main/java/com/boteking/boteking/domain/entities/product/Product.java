@@ -1,4 +1,4 @@
-package com.boteking.boteking.domain.entities;
+package com.boteking.boteking.domain.entities.product;
 
 import java.math.BigDecimal;
 
